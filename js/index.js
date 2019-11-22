@@ -1,16 +1,11 @@
-   window.onload=function(){
-   var header=document.querySelector('.header');
-    console.log(header);
-    //var form=document.createElement("form");
+    var header=document.querySelector('.header');
     var form=document.forms.my_form;
-    console.log(form);
-    //header.innerHTML=form; 
-
     var input=document.createElement("input");
     form.appendChild(input);
     input.setAttribute("type","text");
     input.setAttribute("placeholder","Search..");
     input.setAttribute("name","name");
+    var inp_val=input.value;
     
 
     var button=document.createElement("button");
@@ -19,26 +14,45 @@
     var i=document.createElement("i");
     button.appendChild(i);
     i.classList.add("fa", "fa-search");
-
     button.addEventListener('click', find);
 
-    var poster=document.createElement('div');
-    poster.classList.add("poster", "row", "text-center");
-    console.log(poster);
-
-    var inp_val=input.value;
+    var poster_div=document.getElementById('posrer_div');
+    
     function find(){
+      
         var link=`http://www.omdbapi.com/?i=tt3896198&apikey=c8af20c9&t=${inp_val}`
+        //var х=new Request(link);
         fetch(link)
-        .then(response=>{ 
-            console.log(response);       
-            return response.json();            
+        .then(response=>{   
+          console.log(inp_val);               
+          return response.json();            
         })
           .then((data)=>{
             console.log(data);
-            poster.innerHTML=`<img src="${data.Poster}" alt="">`;  
-            poster.innerHTML=`<h2>${data.Title}</h2>`;
-            poster.innerHTML=`<h2>${data.Title}</h2>`;       
-           }) 
-    }  
-   }
+            /* poster_div.innerHTML=`<img src="${data.Poster}" alt="">`;  
+            poster_div.innerHTML=`<h2>${data.Title}</h2>`;
+            poster_div.innerHTML=`<h2>${data.Title}</h2>`;       
+           }) */
+        })
+        /* .catch(error=>{
+          console.log('error!');
+          console.error(error);
+        }) */
+        
+        /* catchPoster()
+        .then(
+          responce=>{
+          console.log("yra!")
+          })
+        .catch(error=>{
+          console.log('error!');
+          console.error(error);
+        )
+          async function catchPoster(){
+          const responce=await fetch(link);
+          const blob=await responce.blob();
+          poster_div.innerHTML=`<img src="${url.createObjectURL(blob)}" alt="">`
+        }        
+        */
+      }
+  
